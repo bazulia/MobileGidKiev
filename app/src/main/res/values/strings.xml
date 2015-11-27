@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">MobileGidKiev</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Поиск</string>
+    <string name="action_sort_alpha">Сортировать по алфавиту</string>
+    <string name="action_sort_rating">Сортировать по рейтингу</string>
+
+    <string name="yolo_desc">
+        Гриль-ресторан Y.O.L.O. имеет один девиз, который стал логотипом и названием ресторана. Аббревиатура Y.O.L.O. означает You Live Only Once, что в переводе с английского означает — «ты живешь всего раз».
+
+        Почувствовать себя свободным от городского шума и уличной суеты можно в окруженном зеленым оазисом в интерьере ресторана «YOLO». Главным достоинством ресторана является его fusion кухня. Открыв меню ресторана «YOLO», вы найдете все, что позволит вам получить настоящее удовольствие от превосходно приготовленных блюд, расслабиться и приятно провести время в кругу близких, друзей, знакомых или деловых партнеров.
+    </string>
+</resources>

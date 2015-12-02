@@ -9,14 +9,60 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
         <ImageView
             android:id="@+id/imgDetail"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RatingBar
+                android:id="@+id/ratingbarDesc"
+                style="?android:attr/ratingBarStyleIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:numStars="5"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                />
+            <TextView
+                android:id="@+id/tvRatingAVGNum"
+                android:text="4.2"
+                android:layout_gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/ratingbarDesc"
+                android:layout_toEndOf="@+id/ratingbarDesc" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/address"/>
+        <TextView
+            android:id="@+id/tvAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnSeeOnMap"
+            android:text="@string/see_on_map"
+            android:textAllCaps="false"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content" />
+
         <TextView
             android:id="@+id/titleDesc"
+            android:text="Description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000000"
@@ -25,24 +71,32 @@
             android:textSize="20dp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/descriptionDesc"
+        <com.ms.square.android.expandabletextview.ExpandableTextView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:expandableTextView="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/expand_text_view_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:padding="10dp"
-            android:textSize="15dp" />
+            expandableTextView:maxCollapsedLines="4"
+            expandableTextView:animDuration="200">
 
-        <RatingBar
-            android:id="@+id/ratingbarDesc"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:numStars="5"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
-            />
+            <TextView
+                android:id="@id/expandable_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:padding="10dp"
+                android:textSize="15dp" />
+
+            <ImageButton
+                android:id="@id/expand_collapse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_gravity="right|bottom"
+                android:background="@android:color/transparent"/>
+        </com.ms.square.android.expandabletextview.ExpandableTextView>
+
 
     </LinearLayout>
 

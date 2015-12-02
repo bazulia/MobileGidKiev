@@ -1,4 +1,4 @@
-package com.bezeka.igor.mobilegidkiev;
+package com.bezeka.igor.mobilegidkiev.model;
 
 /**
  * Created by Igor on 25.11.2015.

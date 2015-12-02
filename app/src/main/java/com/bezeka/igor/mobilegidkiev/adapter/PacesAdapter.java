@@ -1,10 +1,8 @@
-package com.bezeka.igor.mobilegidkiev;
+package com.bezeka.igor.mobilegidkiev.adapter;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +10,9 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bezeka.igor.mobilegidkiev.model.Place;
+import com.bezeka.igor.mobilegidkiev.R;
+import com.bezeka.igor.mobilegidkiev.activity.DetailActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

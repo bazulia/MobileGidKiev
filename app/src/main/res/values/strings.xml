@@ -3,13 +3,24 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="action_search">Поиск</string>
-    <string name="action_sort_alpha">Сортировать по алфавиту</string>
-    <string name="action_sort_rating">Сортировать по рейтингу</string>
+    <string name="action_search">Пошук</string>
+    <string name="action_sort_alpha">Сортування за алфавітом</string>
+    <string name="action_sort_rating">Сортування за рейтингом</string>
+    <string name="action_sort_distance">Сортування за віддаленністю</string>
 
-    <string name="yolo_desc">
-        Гриль-ресторан Y.O.L.O. имеет один девиз, который стал логотипом и названием ресторана. Аббревиатура Y.O.L.O. означает You Live Only Once, что в переводе с английского означает — «ты живешь всего раз».
+    <string name="set_rating">Залишити оцінку</string>
+    <string name="set_comment">Залишити коментар</string>
+    <string name="send">Відправити</string>
+    <string name="cancel">Відмінити</string>
+    <string name="next">Далі</string>
 
-        Почувствовать себя свободным от городского шума и уличной суеты можно в окруженном зеленым оазисом в интерьере ресторана «YOLO». Главным достоинством ресторана является его fusion кухня. Открыв меню ресторана «YOLO», вы найдете все, что позволит вам получить настоящее удовольствие от превосходно приготовленных блюд, расслабиться и приятно провести время в кругу близких, друзей, знакомых или деловых партнеров.
-    </string>
+    <string name="address">Адреса: </string>
+    <string name="see_on_map">Переглянути на мапі</string>
+
+    <string name="plz_wait_login">Вхід у систему</string>
+    <string name="plz_wait_registration">Реєстрація у системі</string>
+    <string name="plz_wait_getting_list">Завантаження списку місць</string>
+    <string name="plz_wait_loading_map">Завантаження мапи</string>
+    <string name="title_activity_map">MapActivity</string>
+
 </resources>

@@ -56,7 +56,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_alignParentLeft="true"
-                    android:src="@drawable/icon"/>
+                    android:src="@drawable/comment_icon"/>
 
                 <RatingBar
                     android:id="@+id/ratingbar"

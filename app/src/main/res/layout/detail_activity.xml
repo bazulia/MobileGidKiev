@@ -52,24 +52,39 @@
                 </RelativeLayout>
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/black"
-                    android:text="@string/address" />
-
-                <TextView
-                    android:id="@+id/tvAddress"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content">
 
-                <Button
-                    android:id="@+id/btnSeeOnMap"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:text="@string/see_on_map"
-                    android:textAllCaps="false" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:text="@string/address"
+                        android:id="@+id/textView" />
+
+                    <TextView
+                        android:id="@+id/tvAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_toLeftOf="@+id/btnSeeOnMap"
+                        android:layout_toStartOf="@+id/btnSeeOnMap" />
+
+                    <ImageView
+                        android:id="@+id/imgSeeOnMap"
+                        android:layout_width="65dp"
+                        android:layout_height="65dp"
+                        android:padding="5dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/map_btn_selector"
+                        android:textAllCaps="false"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/titleDesc"
@@ -102,10 +117,42 @@
                         android:id="@id/expand_collapse"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="right|bottom"
-                        android:layout_margin="16dp"
+                        android:layout_gravity="center_horizontal"
                         android:background="@android:color/transparent" />
                 </com.ms.square.android.expandabletextview.ExpandableTextView>
+                <TextView
+                    android:text="@string/comments"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:textColor="@android:color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tvNoComments"
+                    android:text="@string/no_comments"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:id="@+id/linCommentsLayout"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnSentComment"
+                    android:text="@string/set_comment"
+                    android:textAllCaps="false"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
         </LinearLayout>

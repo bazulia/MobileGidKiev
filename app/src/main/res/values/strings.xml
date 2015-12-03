@@ -11,22 +11,35 @@
     <string name="set_rating">Залишити оцінку</string>
     <string name="set_comment">Залишити коментар</string>
     <string name="send">Відправити</string>
-    <string name="cancel">Відмінити</string>
+    <string name="cancel">Відміна</string>
     <string name="next">Далі</string>
+    <string name="anonim">Анонімно</string>
+
 
     <string name="address">Адреса: </string>
+    <string name="comments">Відгуки: </string>
     <string name="see_on_map">Переглянути на мапі</string>
 
+    <string name="auth">Авторизація</string>
     <string name="login">Вхід</string>
     <string name="registration">Реєстрація</string>
+    <string name="comment">Відгук</string>
+
+    <string name="auth_main_text">Для того щоб залишити відгук до закладу - необхідно авторизуватися у системі. Якщо ви ще не зареєстровані то пройдіть реєстрацію.</string>
+
+    <string name="plz_fill_all_fields">Будьласка заповніть усі поля для вводу</string>
+    <string name="plz_input_equals_passwords">Паролі у введених плях відрізняються</string>
 
     <string name="tologin">Ввійти</string>
     <string name="toregister">Зареєструватися</string>
+    <string name="tosend">Надіслати</string>
 
     <string name="login_email">Введіть будьласка email</string>
     <string name="login_password">Введіть будьласка пароль</string>
     <string name="login_confirm_password">Підтвердіть пароль</string>
+    <string name="send_comment_main_text">Повідомлення...</string>
     <string name="login_name">Введіть будьласка своє ім\'я</string>
+    <string name="no_comments">Відгуки відсутні</string>
 
     <string name="plz_wait_login">Вхід у систему</string>
     <string name="plz_wait_registration">Реєстрація у системі</string>

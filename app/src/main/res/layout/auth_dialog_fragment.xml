@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:background="@color/login_bg"
+    tools:context="com.bezeka.igor.mobilegidkiev.dialog_fragment.AuthDialogFragment">
+
+    <TextView
+        android:text="@string/auth"
+        android:textSize="25dp"
+        android:textColor="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:text="@string/auth_main_text"
+        android:textSize="17dp"
+        android:background="@drawable/rounded_edittext_greylight"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/btnCancle"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:text="@string/cancel"
+            android:background="@drawable/rounded_button_grey_with_border"
+            android:textAllCaps="false"
+            android:textColor="#fc478fbe"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textColor="#fc478fbe"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:background="@drawable/rounded_button_grey_with_border"
+            android:text="@string/toregister"
+            android:textAllCaps="false"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="#fc478fbe"
+            android:background="@drawable/rounded_button_grey_with_border"
+            android:text="@string/tologin"
+            android:textAllCaps="false"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+
+
+
+</LinearLayout>

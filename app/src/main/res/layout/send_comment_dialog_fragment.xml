@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/login_bg"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="20dp"
+    tools:context="com.bezeka.igor.mobilegidkiev.dialog_fragment.LoginDialogFragment">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="@string/comment"
+        android:textColor="@android:color/white"
+        android:textSize="25dp" />
+
+
+    <EditText
+        android:id="@+id/etMainText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/edittext_bg_settings"
+        android:gravity="left|top"
+        android:hint="@string/send_comment_main_text"
+        android:lines="4"
+        android:padding="10dp" />
+
+    <RelativeLayout
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/anonim"
+            android:layout_gravity="left"
+            android:id="@+id/chbAnonim"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+        <RadioGroup
+            android:orientation="horizontal"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <RadioButton
+                android:id="@+id/rbLike"
+                android:background="@drawable/rb_like_selector"
+                android:button="@android:color/transparent"
+                android:layout_marginRight="20dp"
+                android:layout_width="45dp"
+                android:layout_height="45dp" />
+            <RadioButton
+                android:id="@+id/rbDislike"
+                android:background="@drawable/rb_dislike_selector"
+                android:button="@android:color/transparent"
+                android:layout_width="45dp"
+                android:layout_height="45dp" />
+        </RadioGroup>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnCancle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/rounded_button_grey_with_border"
+            android:text="@string/cancel"
+            android:textAllCaps="false"
+            android:textColor="#fc478fbe" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/rounded_button_grey_with_border"
+            android:text="@string/tosend"
+            android:textAllCaps="false"
+            android:textColor="#fc478fbe" />
+    </RelativeLayout>
+
+
+</LinearLayout>

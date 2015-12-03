@@ -17,6 +17,17 @@
     <string name="address">Адреса: </string>
     <string name="see_on_map">Переглянути на мапі</string>
 
+    <string name="login">Вхід</string>
+    <string name="registration">Реєстрація</string>
+
+    <string name="tologin">Ввійти</string>
+    <string name="toregister">Зареєструватися</string>
+
+    <string name="login_email">Введіть будьласка email</string>
+    <string name="login_password">Введіть будьласка пароль</string>
+    <string name="login_confirm_password">Підтвердіть пароль</string>
+    <string name="login_name">Введіть будьласка своє ім\'я</string>
+
     <string name="plz_wait_login">Вхід у систему</string>
     <string name="plz_wait_registration">Реєстрація у системі</string>
     <string name="plz_wait_getting_list">Завантаження списку місць</string>

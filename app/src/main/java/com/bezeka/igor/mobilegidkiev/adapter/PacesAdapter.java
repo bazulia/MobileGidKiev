@@ -10,9 +10,9 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.bezeka.igor.mobilegidkiev.model.Place;
 import com.bezeka.igor.mobilegidkiev.R;
 import com.bezeka.igor.mobilegidkiev.activity.DetailActivity;
+import com.bezeka.igor.mobilegidkiev.model.Place;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -66,6 +66,7 @@ public class PacesAdapter extends RecyclerView.Adapter<PacesAdapter.ViewHolder>{
                 intent.putExtra("description",place.getDescription());
                 intent.putExtra("img",place.getImgLink());
                 intent.putExtra("rating",place.getRating());
+                intent.putExtra("address",place.getAddress());
                 context.startActivity(intent);
             }
         });

@@ -2,13 +2,13 @@ package com.bezeka.igor.mobilegidkiev.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.bezeka.igor.mobilegidkiev.R;
 import com.google.android.gms.maps.CameraUpdate;
@@ -27,11 +27,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
+    public String address;
 
 
     public static final float DEFAULTZOOM = 15;
@@ -43,7 +45,9 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         Intent intent = getIntent();
 
-        String address = intent.getStringExtra("address");
+        address = intent.getStringExtra("address");
+
+        Toast.makeText(getApplicationContext(),address,Toast.LENGTH_LONG).show();
 
         new MyTask().execute(address);
 
@@ -124,7 +128,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
         double lat;
         double lng;
-        String address;
         String locality;
         String formatedAddress;
 
@@ -147,20 +150,24 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
 
-
             gotoLocation(lat, lng, DEFAULTZOOM);
 
             mMap.addMarker(new MarkerOptions()
                     .position(new LatLng(lat, lng))
                     .title(locality));
-
-
         }
 
         public void getLatLongFromGivenAddress(String youraddress) {
+            Log.d("YOURADDRESS",youraddress);
+
+            youraddress = URLEncoder.encode(youraddress);
+
             String uri = "http://maps.google.com/maps/api/geocode/json?address=" +
                     youraddress + "&sensor=false&language=ru";
 
+
+
+            Log.d("GEOLOCATION REQUEST",uri);
 
             OkHttpClient client = new OkHttpClient();
             String stringResponce = null;
@@ -173,6 +180,8 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 Response response = client.newCall(request).execute();
 
                 stringResponce = response.body().string();
+
+                Log.d("GEOLOCATION RESPONCE", stringResponce);
 
             } catch (IOException e) {
                 e.printStackTrace();

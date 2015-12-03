@@ -2,9 +2,9 @@ package com.bezeka.igor.mobilegidkiev.activity;
 
 import android.app.ProgressDialog;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,11 +17,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
-import com.bezeka.igor.mobilegidkiev.adapter.PacesAdapter;
-import com.bezeka.igor.mobilegidkiev.model.Place;
 import com.bezeka.igor.mobilegidkiev.R;
+import com.bezeka.igor.mobilegidkiev.adapter.PacesAdapter;
 import com.bezeka.igor.mobilegidkiev.app.AppConfig;
 import com.bezeka.igor.mobilegidkiev.app.AppController;
+import com.bezeka.igor.mobilegidkiev.model.Place;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         Response.ErrorListener errorListener = new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Log.d(TAG, "Login Error: " + volleyError.getMessage());
+                Log.d(TAG, "Places Error: " + volleyError.getMessage());
                 Toast.makeText(getApplicationContext(),
                         volleyError.getMessage(), Toast.LENGTH_LONG).show();
                 hideDialog();

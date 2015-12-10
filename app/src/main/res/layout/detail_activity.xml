@@ -70,8 +70,8 @@
                         android:layout_below="@+id/textView"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
-                        android:layout_toLeftOf="@+id/btnSeeOnMap"
-                        android:layout_toStartOf="@+id/btnSeeOnMap" />
+                        android:layout_toLeftOf="@+id/imgSeeOnMap"
+                        android:layout_toStartOf="@+id/imgSeeOnMap" />
 
                     <ImageView
                         android:id="@+id/imgSeeOnMap"

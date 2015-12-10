@@ -36,7 +36,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     public String address;
 
 
-    public static final float DEFAULTZOOM = 15;
+    public static final float DEFAULTZOOM = 18;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

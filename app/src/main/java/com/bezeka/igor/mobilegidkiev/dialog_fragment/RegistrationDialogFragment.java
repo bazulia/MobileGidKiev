@@ -11,7 +11,6 @@ import android.widget.EditText;
 
 import com.bezeka.igor.mobilegidkiev.R;
 import com.bezeka.igor.mobilegidkiev.helper.Checker;
-import com.bezeka.igor.mobilegidkiev.helper.PlacesAPI;
 
 /**
  * Created by Igor on 03.12.2015.
@@ -69,10 +68,14 @@ public class RegistrationDialogFragment extends DialogFragment implements View.O
                 if(Checker.checkFourEditText(getActivity(), etEmail,etPassword, etConfirmPassword, etName)){
                     if(Checker.isPasswordsEquals(getActivity(), password,passwordConfirm))
                     {
-                        PlacesAPI.registration(getActivity(),email,password,name);
+                       registration();
                     }
                 }
                 break;
         }
+    }
+
+    private void registration(){
+
     }
 }

@@ -44,20 +44,15 @@ public class SendCommentDialogFragment extends DialogFragment implements View.On
         etText = (EditText) view.findViewById(R.id.etMainText);
 
         btnCancel = (Button) view.findViewById(R.id.btnCancle);
-        btnSend = (Button) view.findViewById(R.id.btnSentComment);
+        btnSend = (Button) view.findViewById(R.id.btnSend);
 
         isAnonim = (CheckBox) view.findViewById(R.id.chbAnonim);
-
-        rbLike = (RadioButton) view.findViewById(R.id.rbLike);
-        rbDislike = (RadioButton) view.findViewById(R.id.rbDislike);
-
         btnCancel.setOnClickListener(this);
         btnSend.setOnClickListener(this);
 
         mainText = etText.getText().toString();
         isAnonuimBoolean = isAnonim.isChecked();
 
-        isLike = rbLike.isChecked();
 
         return new AlertDialog.Builder(getActivity())
                 .setView(view)

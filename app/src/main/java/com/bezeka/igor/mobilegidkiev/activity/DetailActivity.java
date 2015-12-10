@@ -53,7 +53,8 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         tvNoComments = (TextView) findViewById(R.id.tvNoComments);
         rating = (RatingBar) findViewById(R.id.ratingbarDesc);
 
-        imgSeeOnMap = (ImageView) findViewById(R.id.btnSeeOnMap);
+        imgSeeOnMap = (ImageView) findViewById(R.id.imgSeeOnMap);
+        imgSeeOnMap.setOnClickListener(this);
 
         btnSendComment = (Button) findViewById(R.id.btnSentComment);
         btnSendComment.setOnClickListener(this);

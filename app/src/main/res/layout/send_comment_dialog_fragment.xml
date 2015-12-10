@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/login_bg"
+    android:background="@android:color/white"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:padding="20dp"
@@ -15,7 +15,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:text="@string/comment"
-        android:textColor="@android:color/white"
         android:textSize="25dp" />
 
 
@@ -24,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:background="@drawable/edittext_bg_settings"
+        android:background="@drawable/rounded_button_grey_with_border"
         android:gravity="left|top"
         android:hint="@string/send_comment_main_text"
         android:lines="4"
@@ -44,26 +43,6 @@
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
-        <RadioGroup
-            android:orientation="horizontal"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <RadioButton
-                android:id="@+id/rbLike"
-                android:background="@drawable/rb_like_selector"
-                android:button="@android:color/transparent"
-                android:layout_marginRight="20dp"
-                android:layout_width="45dp"
-                android:layout_height="45dp" />
-            <RadioButton
-                android:id="@+id/rbDislike"
-                android:background="@drawable/rb_dislike_selector"
-                android:button="@android:color/transparent"
-                android:layout_width="45dp"
-                android:layout_height="45dp" />
-        </RadioGroup>
 
     </RelativeLayout>
 
@@ -80,21 +59,21 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="20dp"
-            android:background="@drawable/rounded_button_grey_with_border"
+            android:background="@color/action_bar"
             android:text="@string/cancel"
             android:textAllCaps="false"
-            android:textColor="#fc478fbe" />
+            android:textColor="@android:color/white" />
 
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnSend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="20dp"
-            android:background="@drawable/rounded_button_grey_with_border"
+            android:background="@color/action_bar"
             android:text="@string/tosend"
             android:textAllCaps="false"
-            android:textColor="#fc478fbe" />
+            android:textColor="@android:color/white" />
     </RelativeLayout>
 
 

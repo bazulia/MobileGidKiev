@@ -11,7 +11,6 @@ import android.widget.EditText;
 
 import com.bezeka.igor.mobilegidkiev.R;
 import com.bezeka.igor.mobilegidkiev.helper.Checker;
-import com.bezeka.igor.mobilegidkiev.helper.PlacesAPI;
 
 /**
  * Created by Igor on 03.12.2015.
@@ -60,10 +59,13 @@ public class LoginDialogFragment extends DialogFragment implements View.OnClickL
                 break;
             case R.id.btnLogin:
                 if(Checker.checkTwoEditText(getActivity(), etEmail,etPassword))
-                    PlacesAPI.login(getActivity(),email,password);
+                    login();
                 break;
         }
     }
 
+    private void login(){
+
+    }
 
 }

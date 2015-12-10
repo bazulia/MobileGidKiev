@@ -118,9 +118,9 @@ public class MainActivity extends AppCompatActivity {
                         String address = object.getString("address");
                         String link_image = object.getString("link_image");
                         String work_time = object.getString("work_time");
-                        String type = object.getString("type");
+                        String type = object.getString("name");
                         String region = object.getString("region");
-                        float rating = object.getInt("rating");
+                        float rating = 5;//object.getInt("rating");
 
                         places.add(new Place(id,title,description,link_image,rating,address,work_time,type,region));
 

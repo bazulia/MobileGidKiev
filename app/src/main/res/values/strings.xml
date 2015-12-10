@@ -34,8 +34,8 @@
     <string name="toregister">Зареєструватися</string>
     <string name="tosend">Надіслати</string>
 
-    <string name="login_email">Введіть будьласка email</string>
-    <string name="login_password">Введіть будьласка пароль</string>
+    <string name="login_email">Email</string>
+    <string name="login_password">Пароль</string>
     <string name="login_confirm_password">Підтвердіть пароль</string>
     <string name="send_comment_main_text">Повідомлення...</string>
     <string name="login_name">Введіть будьласка своє ім\'я</string>

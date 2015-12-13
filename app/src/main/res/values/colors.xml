@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="action_bar">#50a7f7</color>
+    <color name="primary">#50a7f7</color>
+    <color name="primary_dark">#3983bc</color>
     <color name="login_bg">#6366b4ff</color>
 </resources>

@@ -6,13 +6,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp"
-    android:background="@color/login_bg"
-    tools:context="com.bezeka.igor.mobilegidkiev.dialog_fragment.LoginDialogFragment">
+    tools:context="com.bezeka.igor.mobilegidkiev.dialog_fragment.RegistrationDialogFragment">
 
     <TextView
         android:text="@string/registration"
         android:textSize="25dp"
-        android:textColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -20,7 +18,8 @@
         android:id="@+id/etEmail"
         android:layout_marginTop="20dp"
         android:hint="@string/login_email"
-        android:background="@drawable/edittext_bg_settings"
+        android:inputType="textEmailAddress"
+        android:background="@drawable/rounded_button_grey_with_border"
         android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -28,7 +27,8 @@
         android:id="@+id/etPassword"
         android:layout_marginTop="20dp"
         android:hint="@string/login_password"
-        android:background="@drawable/edittext_bg_settings"
+        android:inputType="textPassword"
+        android:background="@drawable/rounded_button_grey_with_border"
         android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -36,8 +36,9 @@
     <EditText
         android:id="@+id/etConfirmPassword"
         android:layout_marginTop="20dp"
-        android:background="@drawable/edittext_bg_settings"
+        android:background="@drawable/rounded_button_grey_with_border"
         android:padding="10dp"
+        android:inputType="textPassword"
         android:hint="@string/login_confirm_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -45,7 +46,7 @@
     <EditText
         android:id="@+id/etName"
         android:layout_marginTop="20dp"
-        android:background="@drawable/edittext_bg_settings"
+        android:background="@drawable/rounded_button_grey_with_border"
         android:padding="10dp"
         android:hint="@string/login_name"
         android:layout_width="match_parent"
@@ -61,22 +62,24 @@
             android:layout_alignParentLeft="true"
             android:layout_width="wrap_content"
             android:text="@string/cancel"
-            android:textColor="#fc478fbe"
-            android:background="@drawable/rounded_button_grey_with_border"
+            android:background="@color/action_bar"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="10dp"
             android:textAllCaps="false"
-            android:layout_marginLeft="20dp"
             android:layout_height="wrap_content" />
 
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnRegister"
             android:layout_width="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
             android:text="@string/toregister"
-            android:textColor="#fc478fbe"
-            android:paddingRight="10dp"
+            android:background="@color/action_bar"
             android:paddingLeft="10dp"
-            android:background="@drawable/rounded_button_grey_with_border"
+            android:paddingRight="10dp"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="10dp"
             android:textAllCaps="false"
             android:layout_height="wrap_content" />
     </RelativeLayout>

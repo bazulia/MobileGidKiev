@@ -13,9 +13,10 @@ public class Place {
     String work_time;
     String type;
     String region;
+    double distance;
 
     public Place(String id,String title, String description, String imgLink, float rating,
-                 String address, String work_time, String type, String region){
+                 String address, String work_time, String type, String region, double distance){
         this.id = id;
         this.title = title;
         this.description = description;
@@ -25,6 +26,15 @@ public class Place {
         this.work_time = work_time;
         this.type = type;
         this.region = region;
+        this.distance = distance;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(double distance) {
+        this.distance = distance;
     }
 
     public String getDescription() {

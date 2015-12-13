@@ -7,6 +7,7 @@
     <string name="action_sort_alpha">Сортування за алфавітом</string>
     <string name="action_sort_rating">Сортування за рейтингом</string>
     <string name="action_sort_distance">Сортування за віддаленністю</string>
+    <string name="action_auth">Вхід/Вихід</string>
 
     <string name="set_rating">Залишити оцінку</string>
     <string name="set_comment">Залишити коментар</string>
@@ -14,7 +15,6 @@
     <string name="cancel">Відміна</string>
     <string name="next">Далі</string>
     <string name="anonim">Анонімно</string>
-
 
     <string name="address">Адреса: </string>
     <string name="comments">Відгуки: </string>
@@ -24,13 +24,18 @@
     <string name="login">Вхід</string>
     <string name="registration">Реєстрація</string>
     <string name="comment">Відгук</string>
+    <string name="cabinet">Особистий кабінет</string>
 
     <string name="auth_main_text">Для того щоб залишити відгук до закладу - необхідно авторизуватися у системі. Якщо ви ще не зареєстровані то пройдіть реєстрацію.</string>
 
     <string name="plz_fill_all_fields">Будьласка заповніть усі поля для вводу</string>
     <string name="plz_input_equals_passwords">Паролі у введених плях відрізняються</string>
+    <string name="sry_cant_load_data_from_server">Не вдалося встановити з\'єднання з сервером</string>
+    <string name="sry_registration_error">При реєстрації відбулася помилка</string>
+    <string name="sry_login_error">Ви ввели неправильний логін або пароль</string>
 
     <string name="tologin">Ввійти</string>
+    <string name="toexit">Вийти</string>
     <string name="toregister">Зареєструватися</string>
     <string name="tosend">Надіслати</string>
 
@@ -45,6 +50,7 @@
     <string name="plz_wait_registration">Реєстрація у системі</string>
     <string name="plz_wait_getting_list">Завантаження списку місць</string>
     <string name="plz_wait_loading_map">Завантаження мапи</string>
+    <string name="plz_wait_sending_comment">Відправлення відгуку</string>
     <string name="title_activity_map">MapActivity</string>
 
 </resources>

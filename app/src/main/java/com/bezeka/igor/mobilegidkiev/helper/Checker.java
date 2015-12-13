@@ -44,7 +44,9 @@ public class Checker {
         }
     }
 
-    public static boolean checkFourEditText(Context context, final EditText et1, final EditText et2, final EditText et3, final EditText et4){
+    public static boolean checkFourEditText(
+            Context context, final EditText et1, final EditText et2,
+            final EditText et3, final EditText et4){
 
         if(et1.getText().toString().isEmpty()
                 || et2.getText().toString().isEmpty()

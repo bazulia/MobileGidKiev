@@ -5,10 +5,17 @@
         <!-- Customize your theme here. -->
         <item name="android:actionBarStyle">@style/MyActionBar</item>
     </style>
-    <style name="MyActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="MyActionBar" parent="@android:style/Theme.Holo">
         <item name="android:background">#50a7f7</item>
         <item name="android:textColor">@android:color/white</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
     </style>
 
+    <style name="Toolbar" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@android:color/white</item>
+    </style>
 
 </resources>

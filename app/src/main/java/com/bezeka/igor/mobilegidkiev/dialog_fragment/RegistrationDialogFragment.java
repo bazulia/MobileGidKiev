@@ -101,7 +101,13 @@ public class RegistrationDialogFragment extends DialogFragment implements View.O
                         password = etPassword.getText().toString();
                         passwordConfirm = etConfirmPassword.getText().toString();
                         name = etName.getText().toString();
-                        registration(email, password, name);
+
+                        if(Checker.checkInternetConnection(getActivity())){
+                            registration(email, password, name);
+                        } else {
+                            Checker.showCheckInternetDialog((MainActivity)getActivity());
+                        }
+
                     }
                 }
                 break;
@@ -144,8 +150,9 @@ public class RegistrationDialogFragment extends DialogFragment implements View.O
 
                         AppController.getInstance().userName = name;
                         AppController.getInstance().userEmail = email;
+                        AppController.getInstance().userId = object.getString("id");
 
-                        session.setLogin(true,object.getString("email"),object.getString("name"));
+                        session.setLogin(true,object.getString("email"),object.getString("name"),object.getString("id"));
 
                         ((MainActivity)getActivity()).updateMenuTitles();
 

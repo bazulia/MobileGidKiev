@@ -89,10 +89,20 @@ public class LoginDialogFragment extends DialogFragment implements View.OnClickL
                 getDialog().cancel();
                 break;
             case R.id.btnLogin:
+
                 if(Checker.checkTwoEditText(getActivity(), etEmail,etPassword))
+                {
+
                     email = etEmail.getText().toString();
                     password = etPassword.getText().toString();
-                    login(email,password);
+                    if(Checker.checkInternetConnection(getActivity())){
+                        login(email,password);
+                    } else {
+                        Checker.showCheckInternetDialog((MainActivity)getActivity());
+                    }
+
+                }
+
                 break;
         }
     }
@@ -133,8 +143,9 @@ public class LoginDialogFragment extends DialogFragment implements View.OnClickL
 
                         AppController.getInstance().userEmail = object.getString("email");
                         AppController.getInstance().userName = object.getString("name");
+                        AppController.getInstance().userId = object.getString("id");
 
-                        session.setLogin(true,object.getString("email"),object.getString("name"));
+                        session.setLogin(true,object.getString("email"),object.getString("name"), object.getString("id"));
 
                         ((MainActivity)getActivity()).updateMenuTitles();
 

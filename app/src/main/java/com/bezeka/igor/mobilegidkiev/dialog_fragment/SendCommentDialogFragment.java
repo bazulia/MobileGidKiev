@@ -26,6 +26,7 @@ import com.bezeka.igor.mobilegidkiev.app.AppConfig;
 import com.bezeka.igor.mobilegidkiev.app.AppController;
 import com.bezeka.igor.mobilegidkiev.helper.Checker;
 import com.bezeka.igor.mobilegidkiev.helper.SessionManager;
+import com.bezeka.igor.mobilegidkiev.interfaces.SendCommentInterfase;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -75,6 +76,7 @@ public class SendCommentDialogFragment extends DialogFragment implements View.On
         btnSend = (Button) view.findViewById(R.id.btnSend);
 
         isAnonim = (CheckBox) view.findViewById(R.id.chbAnonim);
+
         btnCancel.setOnClickListener(this);
         btnSend.setOnClickListener(this);
 
@@ -97,10 +99,12 @@ public class SendCommentDialogFragment extends DialogFragment implements View.On
             case R.id.btnCancle:
                 getDialog().cancel();
                 break;
-            case R.id.btnSentComment:
-                    if(Checker.checkOneEditText(getActivity(), etText)){
+            case R.id.btnSend:
+                    
+                if(Checker.checkOneEditText(getActivity(), etText)){
                         String mPlaceId = placeId;
                         String mUserId = AppController.getInstance().userId;
+                        Toast.makeText(getActivity(),AppController.getInstance().userId,Toast.LENGTH_SHORT).show();
                         String mMessageText = etText.getText().toString();
                         sendComment(mPlaceId,mUserId,mMessageText);
                     }
@@ -132,7 +136,9 @@ public class SendCommentDialogFragment extends DialogFragment implements View.On
                         sendResult(Activity.RESULT_OK);
                         getDialog().cancel();
 
-
+                        SendCommentInterfase activity = (SendCommentInterfase) getActivity();
+                        activity.onFinishSendDialogFragment(true);
+                        getDialog().dismiss();
                     }
                 }
                 catch (JSONException e) {
@@ -162,6 +168,8 @@ public class SendCommentDialogFragment extends DialogFragment implements View.On
                 params.put("placeId", placeId);
                 params.put("userId",userId);
                 params.put("messageText", messageText);
+
+                Log.d(TAG, params.toString());
 
                 return params;
             }

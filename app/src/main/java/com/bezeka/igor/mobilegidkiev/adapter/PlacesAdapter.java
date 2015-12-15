@@ -57,6 +57,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
+
             filteredPlaces.clear();
             final FilterResults results = new FilterResults();
 
@@ -66,8 +67,10 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
                 final String filterPattern = constraint.toString().toLowerCase().trim();
 
                 for (final Place place : originalPlaces) {
-                    if (place.getTitle().contains(constraint)
-                            || place.getAddress().contains(constraint)) {
+                    if (place.getTitle().toLowerCase().contains(constraint)
+                            || place.getAddress().toLowerCase().contains(constraint)
+                            || place.getAddress().contains(constraint)
+                            || place.getTitle().contains(constraint)) {
                         filteredPlaces.add(place);
                     }
                 }

@@ -17,6 +17,8 @@
     <string name="anonim">Анонімно</string>
 
     <string name="address">Адреса: </string>
+    <string name="email">Email: </string>
+    <string name="name">Ім\'я: </string>
     <string name="comments">Відгуки: </string>
     <string name="see_on_map">Переглянути на мапі</string>
 
@@ -25,6 +27,7 @@
     <string name="registration">Реєстрація</string>
     <string name="comment">Відгук</string>
     <string name="cabinet">Особистий кабінет</string>
+    <string name="no_connection">Відсутне інтернет з\'єднання</string>
 
     <string name="auth_main_text">Для того щоб залишити відгук до закладу - необхідно авторизуватися у системі. Якщо ви ще не зареєстровані то пройдіть реєстрацію.</string>
 
@@ -33,11 +36,13 @@
     <string name="sry_cant_load_data_from_server">Не вдалося встановити з\'єднання з сервером</string>
     <string name="sry_registration_error">При реєстрації відбулася помилка</string>
     <string name="sry_login_error">Ви ввели неправильний логін або пароль</string>
+    <string name="sry_no_connection">Активуйте доступ до інтернету і натисніть \"Повторити\"</string>
 
     <string name="tologin">Ввійти</string>
     <string name="toexit">Вийти</string>
     <string name="toregister">Зареєструватися</string>
     <string name="tosend">Надіслати</string>
+    <string name="torepeat">Повторити</string>
 
     <string name="login_email">Email</string>
     <string name="login_password">Пароль</string>

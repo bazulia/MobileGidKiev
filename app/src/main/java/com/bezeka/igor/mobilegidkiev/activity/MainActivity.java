@@ -29,6 +29,8 @@ import com.bezeka.igor.mobilegidkiev.adapter.PlacesAdapter;
 import com.bezeka.igor.mobilegidkiev.app.AppConfig;
 import com.bezeka.igor.mobilegidkiev.app.AppController;
 import com.bezeka.igor.mobilegidkiev.dialog_fragment.AuthDialogFragment;
+import com.bezeka.igor.mobilegidkiev.dialog_fragment.NoConnectionDialogFragment;
+import com.bezeka.igor.mobilegidkiev.helper.Checker;
 import com.bezeka.igor.mobilegidkiev.helper.SessionManager;
 import com.bezeka.igor.mobilegidkiev.model.Place;
 import com.google.android.gms.maps.GoogleMap;
@@ -47,7 +49,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NoConnectionDialogFragment.CheckInternetInterface {
 
     public static final String TAG = MainActivity.class.getSimpleName();
 
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
     private SessionManager session;
 
     private ProgressDialog pDialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +105,11 @@ public class MainActivity extends AppCompatActivity {
                 .getMap();
         mMap.setMyLocationEnabled(true);
 
-        getPlaces();
+        if (Checker.checkInternetConnection(getApplicationContext())) {
+            getPlaces();
+        } else {
+            Checker.showCheckInternetDialog(this);
+        }
 
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -181,11 +188,16 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_auth:
                 hideKeyboard();
                 etSearch.setVisibility(View.GONE);
-                AuthDialogFragment authDialogFragment = new AuthDialogFragment();
-                Bundle args = new Bundle();
-                args.putBoolean("isSendComment", false);
-                authDialogFragment.setArguments(args);
-                authDialogFragment.show(getSupportFragmentManager(), AuthDialogFragment.class.getSimpleName());
+                if (Checker.checkInternetConnection(getApplicationContext())) {
+                    AuthDialogFragment authDialogFragment = new AuthDialogFragment();
+                    Bundle args = new Bundle();
+                    args.putBoolean("isSendComment", false);
+                    authDialogFragment.setArguments(args);
+                    authDialogFragment.show(getSupportFragmentManager(), AuthDialogFragment.class.getSimpleName());
+                } else {
+                    Checker.showCheckInternetDialog(this);
+                }
+
                 break;
         }
 
@@ -372,6 +384,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         return meterInDec;
+    }
+
+    @Override
+    public void onGetResult(boolean connect) {
+        if (Checker.checkInternetConnection(getApplicationContext())) {
+            getPlaces();
+        } else {
+            Checker.showCheckInternetDialog(this);
+        }
     }
 
 

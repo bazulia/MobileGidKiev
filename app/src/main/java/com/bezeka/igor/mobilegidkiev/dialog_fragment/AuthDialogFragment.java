@@ -68,8 +68,8 @@ public class AuthDialogFragment extends DialogFragment implements View.OnClickLi
             layPre.setVisibility(View.GONE);
             tvTitle.setText(R.string.cabinet);
 
-            String html = "<p><b>"+getString(R.string.login_email)+": </b>"+email+"</p></br>" +
-                    "<p><b>"+getString(R.string.login_name)+": </b>"+name+"</p>";
+            String html = "<p><b>"+getString(R.string.email)+" </b>"+email+"</p></br>" +
+                    "<p><b>"+getString(R.string.name)+" </b>"+name+"</p>";
 
             tvAfterAuth.setText(Html.fromHtml(html));
 

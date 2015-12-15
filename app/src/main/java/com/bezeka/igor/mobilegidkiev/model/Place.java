@@ -17,7 +17,8 @@ public class Place {
     public static final String JSON_REGION = "region";
     public static final String JSON_NAME = "name";
     public static final String JSON_PARAMS = "params";
-    public static final String JSON_COMMENT_COUNT = "commCount";
+    public static final String JSON_AVG_RATE = "avgRate";
+    public static final String JSON_COMMENT_COUNT = "rateCount";
     public static final String JSON_RATE_COUNT = "rateCount";
 
     String id;
@@ -41,6 +42,8 @@ public class Place {
         setWork_time(json.getString(JSON_WORK_TIME));
         setRegion(json.getString(JSON_REGION));
         setCountComments(json.getString(JSON_COMMENT_COUNT));
+        setRating(Float.valueOf(json.getString(JSON_AVG_RATE)));
+
     }
 
     public JSONObject toJSON() throws JSONException{
@@ -53,7 +56,7 @@ public class Place {
         json.put(JSON_WORK_TIME,getWork_time());
         json.put(JSON_REGION,getRegion());
         json.put(JSON_COMMENT_COUNT,getCountComments());
-
+        json.put(JSON_AVG_RATE, getRating());
         return json;
     }
 

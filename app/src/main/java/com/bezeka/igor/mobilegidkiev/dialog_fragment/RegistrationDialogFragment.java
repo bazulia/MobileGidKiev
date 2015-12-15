@@ -58,12 +58,21 @@ public class RegistrationDialogFragment extends DialogFragment implements View.O
 
     private ProgressDialog pDialog;
 
+    String placeId;
+
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         View view = getActivity().getLayoutInflater()
                 .inflate(R.layout.registration_dialog_fragment, null);
+
+        isSendComment = getArguments().getBoolean("isSendComment");
+
+        if (isSendComment)
+            placeId = getArguments().getString("placeId");
+        else
+            placeId = "1";
 
         etEmail = (EditText) view.findViewById(R.id.etEmail);
         etPassword = (EditText) view.findViewById(R.id.etPassword);
@@ -158,6 +167,10 @@ public class RegistrationDialogFragment extends DialogFragment implements View.O
 
                         if (isSendComment) {
                             SendCommentDialogFragment sendCommentDialogFragment = new SendCommentDialogFragment();
+                            Bundle args = new Bundle();
+                            args.putBoolean("isSendComment",isSendComment);
+                            args.putString("placeId", placeId);
+                            sendCommentDialogFragment.setArguments(args);
                             sendCommentDialogFragment.show(getActivity().getSupportFragmentManager(),
                                     SendCommentDialogFragment.class.getSimpleName());
                         }

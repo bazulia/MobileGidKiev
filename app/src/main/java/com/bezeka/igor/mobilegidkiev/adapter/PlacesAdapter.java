@@ -94,6 +94,8 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
         private ImageView img;
         private RatingBar rating;
         private TextView tvDistance;
+        private TextView tvCommentsCount;
+        private TextView tvAVGRating;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -102,6 +104,8 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
             img = (ImageView) itemView.findViewById(R.id.img);
             rating = (RatingBar) itemView.findViewById(R.id.ratingbar);
             tvDistance = (TextView) itemView.findViewById(R.id.tvDistance);
+            tvCommentsCount = (TextView) itemView.findViewById(R.id.tvCommentsCount);
+            tvAVGRating = (TextView) itemView.findViewById(R.id.tvRatingAvg);
         }
     }
     @Override
@@ -127,6 +131,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
                 intent.putExtra("rating",place.getRating());
                 intent.putExtra("address",place.getAddress());
                 intent.putExtra("distance",place.getDistance());
+                intent.putExtra("count_comments",place.getCountComments());
                 context.startActivity(intent);
             }
         });
@@ -184,6 +189,8 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
         viewHolder.description.setText(place.getDescription());
         viewHolder.rating.setRating(place.getRating());
         viewHolder.tvDistance.setText(place.getDistance()+"");
+        viewHolder.tvAVGRating.setText(place.getRating()+"");
+        viewHolder.tvCommentsCount.setText(place.getCountComments());
         Picasso.with(context)
                 .load(place.getImgLink())
                 .into(viewHolder.img);

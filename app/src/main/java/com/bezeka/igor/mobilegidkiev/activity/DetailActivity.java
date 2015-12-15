@@ -57,14 +57,14 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     private static final int REQUEST_REGISTRATION = 8823;
     private static final int REQUEST_SEND_COMMENT = 8824;
     private static final int REQUEST_AUTH = 8825;
-    ;
+
 
     ImageView img;
     TextView title;
     TextView tvAddress;
     TextView tvNoComments;
     ImageView imgSeeOnMap;
-    RatingBar rating;
+    RatingBar rbRating;
 
     Button btnSendComment;
 
@@ -75,6 +75,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     String titleText;
     String descriptionText;
     String addressText;
+    String commentsCount;
     float ratingFloat;
 
     private LinearLayout linCommentsLayout;
@@ -82,8 +83,8 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     private ObservableScrollView mScrollView;
     private int mParallaxImageHeight;
 
-    private TextView tvCommentTitle;
-    private TextView tvCommentText;
+    private TextView tvCommentsCount;
+    private TextView tvRating;
 
     private SessionManager session;
 
@@ -101,7 +102,10 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         title = (TextView) findViewById(R.id.titleDesc);
         tvAddress = (TextView) findViewById(R.id.tvAddress);
         tvNoComments = (TextView) findViewById(R.id.tvNoComments);
-        rating = (RatingBar) findViewById(R.id.ratingbarDesc);
+        rbRating = (RatingBar) findViewById(R.id.ratingbarDesc);
+        tvCommentsCount = (TextView) findViewById(R.id.tvRatingCount);
+        tvRating = (TextView) findViewById(R.id.tvRatingAVGNum);
+
 
         linCommentsLayout = (LinearLayout) findViewById(R.id.linCommentsLayout);
 
@@ -124,18 +128,21 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         titleText = intent.getStringExtra("title");
         descriptionText = intent.getStringExtra("description");
         addressText = intent.getStringExtra("address");
-        ratingFloat = intent.getFloatExtra("rating", 4);
+        ratingFloat = intent.getFloatExtra("rating",0);
+        commentsCount = intent.getStringExtra("count_comments");
 
 
         Picasso.with(getApplicationContext())
                 .load(imgLink)
                 .into(img);
         getSupportActionBar().setTitle(Html.fromHtml("<p><small>" + titleText + "</small></p>"));
-        //title.setText(titleText);
         title.setVisibility(View.GONE);
         expTv1.setText(descriptionText);
-        rating.setRating(ratingFloat);
+        rbRating.setRating(ratingFloat);
         tvAddress.setText(addressText);
+        tvCommentsCount.setText("("+commentsCount+")");
+        tvRating.setText(ratingFloat+"");
+
 
         if(Checker.checkInternetConnection(getApplicationContext())){
             getComments(placeId);
@@ -157,6 +164,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                 if (session.isLoggedIn()) {
                     SendCommentDialogFragment sendCommentDialog = new SendCommentDialogFragment();
                     Bundle args = new Bundle();
+                    args.putBoolean("isSendComment", true);
                     args.putString("placeId", placeId);
                     sendCommentDialog.setArguments(args);
                     sendCommentDialog.show(getSupportFragmentManager(), SendCommentDialogFragment.class.getSimpleName());
@@ -164,6 +172,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                     AuthDialogFragment authDialogFragment = new AuthDialogFragment();
                     Bundle args = new Bundle();
                     args.putBoolean("isSendComment", true);
+                    args.putString("placeId",placeId);
                     authDialogFragment.setArguments(args);
                     authDialogFragment.show(getSupportFragmentManager(), AuthDialogFragment.class.getSimpleName());
                 }
@@ -230,7 +239,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
                         tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, titleTextSize);
                         tvTitle.setTypeface(Typeface.DEFAULT_BOLD);
                         tvTitle.setTextColor(getResources().getColor(android.R.color.black));
-                        tvTitle.setText(comment.getUserId());
+                        tvTitle.setText(comment.getName());
 
 
                         TextView tvText = new TextView(getApplicationContext());

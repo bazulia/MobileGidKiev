@@ -50,9 +50,12 @@ public class LoginDialogFragment extends DialogFragment implements View.OnClickL
 
     SessionManager session;
 
+
     boolean isSendComment;
 
     private ProgressDialog pDialog;
+
+    private String placeId;
 
     @NonNull
     @Override
@@ -62,6 +65,11 @@ public class LoginDialogFragment extends DialogFragment implements View.OnClickL
                 .inflate(R.layout.login_dialog_fragment, null);
 
         isSendComment = getArguments().getBoolean("isSendComment");
+
+        if (isSendComment)
+            placeId = getArguments().getString("placeId");
+        else
+            placeId = "1";
 
         etEmail = (EditText) view.findViewById(R.id.etEmail);
         etPassword = (EditText) view.findViewById(R.id.etPassword);
@@ -84,21 +92,20 @@ public class LoginDialogFragment extends DialogFragment implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btnCancle:
                 getDialog().cancel();
                 break;
             case R.id.btnLogin:
 
-                if(Checker.checkTwoEditText(getActivity(), etEmail,etPassword))
-                {
+                if (Checker.checkTwoEditText(getActivity(), etEmail, etPassword)) {
 
                     email = etEmail.getText().toString();
                     password = etPassword.getText().toString();
-                    if(Checker.checkInternetConnection(getActivity())){
-                        login(email,password);
+                    if (Checker.checkInternetConnection(getActivity())) {
+                        login(email, password);
                     } else {
-                        Checker.showCheckInternetDialog((MainActivity)getActivity());
+                        Checker.showCheckInternetDialog((MainActivity) getActivity());
                     }
 
                 }
@@ -107,8 +114,8 @@ public class LoginDialogFragment extends DialogFragment implements View.OnClickL
         }
     }
 
-    private void sendResult(int resultCode){
-        if(getTargetFragment()==null)
+    private void sendResult(int resultCode) {
+        if (getTargetFragment() == null)
             return;
 
         Intent i = new Intent();
@@ -118,7 +125,7 @@ public class LoginDialogFragment extends DialogFragment implements View.OnClickL
     }
 
 
-    private void login(final String email,final String password){
+    private void login(final String email, final String password) {
         String tag_string_req = "login";
 
 
@@ -136,7 +143,7 @@ public class LoginDialogFragment extends DialogFragment implements View.OnClickL
                     JSONObject object = new JSONObject(responce);
 
                     boolean error = object.getBoolean("status");
-                    if(!error){
+                    if (!error) {
 
                         sendResult(Activity.RESULT_OK);
                         getDialog().cancel();
@@ -145,12 +152,14 @@ public class LoginDialogFragment extends DialogFragment implements View.OnClickL
                         AppController.getInstance().userName = object.getString("name");
                         AppController.getInstance().userId = object.getString("id");
 
-                        session.setLogin(true,object.getString("email"),object.getString("name"), object.getString("id"));
-
-                        ((MainActivity)getActivity()).updateMenuTitles();
+                        session.setLogin(true, object.getString("email"), object.getString("name"), object.getString("id"));
 
                         if (isSendComment) {
                             SendCommentDialogFragment sendCommentDialogFragment = new SendCommentDialogFragment();
+                            Bundle args = new Bundle();
+                            args.putBoolean("isSendComment",isSendComment);
+                            args.putString("placeId", placeId);
+                            sendCommentDialogFragment.setArguments(args);
                             sendCommentDialogFragment.show(getActivity().getSupportFragmentManager(),
                                     SendCommentDialogFragment.class.getSimpleName());
                         }
@@ -159,8 +168,7 @@ public class LoginDialogFragment extends DialogFragment implements View.OnClickL
                         Toast.makeText(getActivity().getApplicationContext(),
                                 R.string.sry_login_error, Toast.LENGTH_LONG).show();
                     }
-                }
-                catch (JSONException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
@@ -178,8 +186,7 @@ public class LoginDialogFragment extends DialogFragment implements View.OnClickL
 
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.API_LOGIN, listener, errorListener)
-        {
+                AppConfig.API_LOGIN, listener, errorListener) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
@@ -196,13 +203,13 @@ public class LoginDialogFragment extends DialogFragment implements View.OnClickL
 
     }
 
-    private void showDialog(){
-        if(!pDialog.isShowing())
+    private void showDialog() {
+        if (!pDialog.isShowing())
             pDialog.show();
     }
 
-    private void hideDialog(){
-        if(pDialog.isShowing())
+    private void hideDialog() {
+        if (pDialog.isShowing())
             pDialog.dismiss();
     }
 

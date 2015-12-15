@@ -35,6 +35,8 @@ public class AuthDialogFragment extends DialogFragment implements View.OnClickLi
 
     SessionManager session;
 
+    String placeId;
+
     boolean isSendComment;
 
     @NonNull
@@ -43,6 +45,11 @@ public class AuthDialogFragment extends DialogFragment implements View.OnClickLi
 
         View view = getActivity().getLayoutInflater()
                 .inflate(R.layout.auth_dialog_fragment, null);
+
+        if (isSendComment)
+            placeId = getArguments().getString("placeId");
+        else
+            placeId = "1";
 
         session = new SessionManager(getActivity().getApplicationContext());
 
@@ -60,7 +67,7 @@ public class AuthDialogFragment extends DialogFragment implements View.OnClickLi
         layPre = (RelativeLayout) view.findViewById(R.id.layPreAuth);
         layAfter = (RelativeLayout) view.findViewById(R.id.layAfterAuth);
 
-        if(session.isLoggedIn()){
+        if (session.isLoggedIn()) {
             String email = AppController.getInstance().userEmail;
             String name = AppController.getInstance().userName;
 
@@ -68,8 +75,8 @@ public class AuthDialogFragment extends DialogFragment implements View.OnClickLi
             layPre.setVisibility(View.GONE);
             tvTitle.setText(R.string.cabinet);
 
-            String html = "<p><b>"+getString(R.string.email)+" </b>"+email+"</p></br>" +
-                    "<p><b>"+getString(R.string.name)+" </b>"+name+"</p>";
+            String html = "<p><b>" + getString(R.string.email) + " </b>" + email + "</p></br>" +
+                    "<p><b>" + getString(R.string.name) + " </b>" + name + "</p>";
 
             tvAfterAuth.setText(Html.fromHtml(html));
 
@@ -92,7 +99,7 @@ public class AuthDialogFragment extends DialogFragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btnCancle:
                 getDialog().cancel();
                 break;
@@ -101,21 +108,25 @@ public class AuthDialogFragment extends DialogFragment implements View.OnClickLi
                 LoginDialogFragment logDialog = new LoginDialogFragment();
                 Bundle args = new Bundle();
                 args.putBoolean("isSendComment", isSendComment);
+                if (isSendComment)
+                    args.putString("placeId", placeId);
                 logDialog.setArguments(args);
-                logDialog.show(getActivity().getSupportFragmentManager(),LoginDialogFragment.class.getSimpleName());
+                logDialog.show(getActivity().getSupportFragmentManager(), LoginDialogFragment.class.getSimpleName());
                 break;
             case R.id.btnRegister:
                 getDialog().cancel();
                 RegistrationDialogFragment regDialog = new RegistrationDialogFragment();
                 Bundle args1 = new Bundle();
                 args1.putBoolean("isSendComment", isSendComment);
+                if (isSendComment)
+                    args1.putString("placeId", placeId);
                 regDialog.setArguments(args1);
-                regDialog.show(getActivity().getSupportFragmentManager(),RegistrationDialogFragment.class.getSimpleName());
+                regDialog.show(getActivity().getSupportFragmentManager(), RegistrationDialogFragment.class.getSimpleName());
                 break;
             case R.id.btnExit:
                 getDialog().cancel();
                 session.setLogin(false);
-                ((MainActivity)getActivity()).updateMenuTitles();
+                ((MainActivity) getActivity()).updateMenuTitles();
             default:
                 break;
         }

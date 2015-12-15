@@ -11,9 +11,8 @@ import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioButton;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -44,21 +43,16 @@ public class SendCommentDialogFragment extends DialogFragment implements View.On
     Button btnCancel;
     Button btnSend;
 
-    CheckBox isAnonim;
     EditText etText;
 
-    boolean isAnonuimBoolean;
-
-    boolean isLike;
+    RatingBar rbRating;
 
     String mainText;
     String placeId;
 
-    RadioButton rbLike;
-    RadioButton rbDislike;
-
     SessionManager session;
 
+    boolean isSendComment;
     private ProgressDialog pDialog;
 
     @NonNull
@@ -68,6 +62,8 @@ public class SendCommentDialogFragment extends DialogFragment implements View.On
         View view = getActivity().getLayoutInflater()
                 .inflate(R.layout.send_comment_dialog_fragment, null);
 
+
+        isSendComment = getArguments().getBoolean("isSendComment");
         placeId = getArguments().getString("placeId");
 
         etText = (EditText) view.findViewById(R.id.etMainText);
@@ -75,13 +71,12 @@ public class SendCommentDialogFragment extends DialogFragment implements View.On
         btnCancel = (Button) view.findViewById(R.id.btnCancle);
         btnSend = (Button) view.findViewById(R.id.btnSend);
 
-        isAnonim = (CheckBox) view.findViewById(R.id.chbAnonim);
+        rbRating = (RatingBar) view.findViewById(R.id.rbRatingComments);
 
         btnCancel.setOnClickListener(this);
         btnSend.setOnClickListener(this);
 
         mainText = etText.getText().toString();
-        isAnonuimBoolean = isAnonim.isChecked();
 
         session = new SessionManager(getActivity().getApplicationContext());
 
@@ -100,21 +95,24 @@ public class SendCommentDialogFragment extends DialogFragment implements View.On
                 getDialog().cancel();
                 break;
             case R.id.btnSend:
-                    
-                if(Checker.checkOneEditText(getActivity(), etText)){
-                        String mPlaceId = placeId;
-                        String mUserId = AppController.getInstance().userId;
-                        Toast.makeText(getActivity(),AppController.getInstance().userId,Toast.LENGTH_SHORT).show();
-                        String mMessageText = etText.getText().toString();
-                        sendComment(mPlaceId,mUserId,mMessageText);
-                    }
+
+                if (Checker.checkOneEditText(getActivity(), etText)) {
+                    String mPlaceId = placeId;
+                    String mUserId = AppController.getInstance().userId;
+                    String mMessageText = etText.getText().toString();
+                    String mRating = String.valueOf(rbRating.getRating());
+                    if (rbRating.getRating() != 0f)
+                        sendComment(mPlaceId, mUserId, mMessageText, mRating);
+                    else
+                        Toast.makeText(getActivity(),R.string.sry_no_rating,Toast.LENGTH_SHORT).show();
+                }
 
                 break;
             default:
         }
     }
 
-    private void sendComment(final String placeId,final String userId, final String messageText){
+    private void sendComment(final String placeId, final String userId, final String messageText, final String rating) {
         String tag_string_req = "sendComment";
 
 
@@ -132,7 +130,7 @@ public class SendCommentDialogFragment extends DialogFragment implements View.On
                     JSONObject object = new JSONObject(responce);
 
                     boolean error = object.getBoolean("status");
-                    if(!error){
+                    if (!error) {
                         sendResult(Activity.RESULT_OK);
                         getDialog().cancel();
 
@@ -140,8 +138,7 @@ public class SendCommentDialogFragment extends DialogFragment implements View.On
                         activity.onFinishSendDialogFragment(true);
                         getDialog().dismiss();
                     }
-                }
-                catch (JSONException e) {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
@@ -159,15 +156,15 @@ public class SendCommentDialogFragment extends DialogFragment implements View.On
 
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
-                AppConfig.SET_COMMENT, listener, errorListener)
-        {
+                AppConfig.SET_COMMENT, listener, errorListener) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
 
                 params.put("placeId", placeId);
-                params.put("userId",userId);
+                params.put("userId", userId);
                 params.put("messageText", messageText);
+                params.put("rating",rating);
 
                 Log.d(TAG, params.toString());
 
@@ -177,8 +174,8 @@ public class SendCommentDialogFragment extends DialogFragment implements View.On
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 
-    private void sendResult(int resultCode){
-        if(getTargetFragment()==null)
+    private void sendResult(int resultCode) {
+        if (getTargetFragment() == null)
             return;
 
         Intent i = new Intent();
@@ -187,13 +184,13 @@ public class SendCommentDialogFragment extends DialogFragment implements View.On
                 .onActivityResult(getTargetRequestCode(), resultCode, i);
     }
 
-    private void showDialog(){
-        if(!pDialog.isShowing())
+    private void showDialog() {
+        if (!pDialog.isShowing())
             pDialog.show();
     }
 
-    private void hideDialog(){
-        if(pDialog.isShowing())
+    private void hideDialog() {
+        if (pDialog.isShowing())
             pDialog.dismiss();
     }
 }

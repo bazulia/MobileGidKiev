@@ -9,31 +9,38 @@ import org.json.JSONObject;
 public class Comment {
 
     public static final String JSON_ID = "id";
-    public static final String JSON_PLACE_ID = "place_id";
-    public static final String JSON_USER_ID = "user_id";
-    public static final String JSON_NAME = "name";
     public static final String JSON_TEXT = "text";
+    public static final String JSON_RATING = "rating";
+    public static final String JSON_NAME = "name";
 
     String id;
-    String placeId;
-    String userId;
+    float rating;
     String name;
     String text;
 
     public Comment(JSONObject json) throws JSONException {
         setId(json.getString(JSON_ID));
-        setPlaceId(json.getString(JSON_PLACE_ID));
-        setUserId(json.getString(JSON_USER_ID));
         setText(json.getString(JSON_TEXT));
+        setName(json.getString(JSON_NAME));
+        setRating(Float.valueOf(json.getString(JSON_RATING)));
     }
 
     public JSONObject toJSON() throws JSONException{
         JSONObject json = new JSONObject();
         json.put(JSON_ID,getId());
-        json.put(JSON_PLACE_ID,getPlaceId());
-        json.put(JSON_USER_ID,getUserId());
         json.put(JSON_TEXT,getText());
+        json.put(JSON_NAME,getName());
+        json.put(JSON_RATING,getRating());
+
         return json;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
     public String getId() {
@@ -52,13 +59,6 @@ public class Comment {
         this.name = name;
     }
 
-    public String getPlaceId() {
-        return placeId;
-    }
-
-    public void setPlaceId(String placeId) {
-        this.placeId = placeId;
-    }
 
     public String getText() {
         return text;
@@ -68,11 +68,4 @@ public class Comment {
         this.text = text;
     }
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 }

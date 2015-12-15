@@ -20,6 +20,7 @@
     <string name="email">Email: </string>
     <string name="name">Ім\'я: </string>
     <string name="comments">Відгуки: </string>
+    <string name="description">Опис: </string>
     <string name="see_on_map">Переглянути на мапі</string>
 
     <string name="auth">Авторизація</string>
@@ -37,6 +38,7 @@
     <string name="sry_registration_error">При реєстрації відбулася помилка</string>
     <string name="sry_login_error">Ви ввели неправильний логін або пароль</string>
     <string name="sry_no_connection">Активуйте доступ до інтернету і натисніть \"Повторити\"</string>
+    <string name="sry_no_rating">Будьласка встановіть оцінку закладу</string>
 
     <string name="tologin">Ввійти</string>
     <string name="toexit">Вийти</string>

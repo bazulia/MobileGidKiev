@@ -19,6 +19,8 @@
         android:background="@drawable/btn_selector_grey_with_orange_border"
         android:padding="10dp"
         android:layout_width="match_parent"
+        android:lines="1"
+        android:imeOptions="flagNoExtractUi|actionSearch"
         android:layout_height="wrap_content"
         android:visibility="gone"/>
 

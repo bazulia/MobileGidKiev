@@ -12,11 +12,14 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -128,6 +131,20 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
             }
         });
 
+        etSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    hideKeyboard();
+                    return true;
+                } else {
+
+                    return false;
+                }
+
+            }
+        });
+
     }
 
     @Override
@@ -166,9 +183,13 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
         int id = item.getItemId();
         switch (id) {
             case R.id.action_search:
+                if(etSearch.getVisibility() != View.VISIBLE) {
                 etSearch.setVisibility(View.VISIBLE);
                 etSearch.requestFocus();
-                break;
+            } else {
+                    etSearch.setVisibility(View.GONE);
+            }
+            break;
             case R.id.action_sort_by_alpha:
                 hideKeyboard();
                 etSearch.setVisibility(View.GONE);
@@ -259,7 +280,9 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
 
                         double distance = 243;//CalculationByDistance(curLatLng, findedLatLng);
 
-                        places.add(new Place(id, title, description, link_image, rating, address, work_time, type, region, distance));
+                        Place place = new Place(object);
+                        place.setDistance(distance);
+                        places.add(place);
 
                         rvPlaces.setAdapter(adapterP);
 
@@ -292,6 +315,13 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
             }
         };
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (menu!=null )
+        updateMenuTitles();
     }
 
     private void showDialog() {

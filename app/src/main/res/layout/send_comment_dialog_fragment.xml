@@ -34,15 +34,17 @@
         android:paddingBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <CheckBox
+        <RatingBar
+            android:id="@+id/rbRatingComments"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/anonim"
-            android:layout_gravity="left"
-            android:id="@+id/chbAnonim"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="10dp"
+            android:isIndicator="false"
+            android:layout_marginTop="10dp"
+            android:numStars="5" />
 
     </RelativeLayout>
 

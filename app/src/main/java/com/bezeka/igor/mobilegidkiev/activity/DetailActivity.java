@@ -2,13 +2,14 @@ package com.bezeka.igor.mobilegidkiev.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -153,6 +154,25 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.imgSeeOnMap:
@@ -237,7 +257,6 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
                         TextView tvTitle = new TextView(getApplicationContext());
                         tvTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, titleTextSize);
-                        tvTitle.setTypeface(Typeface.DEFAULT_BOLD);
                         tvTitle.setTextColor(getResources().getColor(android.R.color.black));
                         tvTitle.setText(comment.getName());
 

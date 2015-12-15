@@ -50,7 +50,6 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity implements NoConnectionDialogFragment.CheckInternetInterface {
 
@@ -258,13 +257,6 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
                         String work_time = object.getString("work_time");
                         String type = object.getString("name");
                         String region = object.getString("region");
-
-                        float minX = 1.0f;
-                        float maxX = 5.0f;
-
-                        Random rand = new Random();
-
-                        float rating = rand.nextFloat() * (maxX - minX) + minX;
 
                         getLatLongFromGivenAddress(address);
 

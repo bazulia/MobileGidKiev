@@ -39,6 +39,7 @@
     <string name="sry_login_error">Ви ввели неправильний логін або пароль</string>
     <string name="sry_no_connection">Активуйте доступ до інтернету і натисніть \"Повторити\"</string>
     <string name="sry_no_rating">Будьласка встановіть оцінку закладу</string>
+    <string name="sry_connect_server_error">Під час завантаження данних з серверу виникла помилка. \n Натисніть \"Повторити\" для повторного завантаження</string>
 
     <string name="tologin">Ввійти</string>
     <string name="toexit">Вийти</string>

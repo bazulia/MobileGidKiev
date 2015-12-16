@@ -20,12 +20,37 @@
         android:padding="10dp"
         android:layout_width="match_parent"
         android:lines="1"
-        android:imeOptions="flagNoExtractUi|actionSearch"
+        android:imeOptions="actionSearch"
         android:layout_height="wrap_content"
         android:visibility="gone"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvResplaces"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvResplaces"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:id="@+id/linErrorConnectServer"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:text="@string/sry_connect_server_error"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/tvRepeat"
+                android:textSize="20sp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/action_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </RelativeLayout>
+
 </LinearLayout>

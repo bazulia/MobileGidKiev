@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,6 +67,9 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
 
     private EditText etSearch;
 
+    private LinearLayout linErrorConnect;
+    private TextView tvRepeat;
+
     private RecyclerView rvPlaces;
     private PlacesAdapter adapterP;
     private RecyclerView.LayoutManager manager;
@@ -95,6 +99,20 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
         rvPlaces = (RecyclerView) findViewById(R.id.rvResplaces);
 
         etSearch = (EditText) findViewById(R.id.etSearch);
+
+        linErrorConnect = (LinearLayout) findViewById(R.id.linErrorConnectServer);
+
+        tvRepeat = (TextView) findViewById(R.id.tvRepeat);
+        tvRepeat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (Checker.checkInternetConnection(getApplicationContext())) {
+                    getPlaces();
+                } else {
+                    Checker.showCheckInternetDialog((MainActivity)getApplicationContext());
+                }
+            }
+        });
 
         adapterP = new PlacesAdapter(getApplicationContext(), places);
 
@@ -230,6 +248,9 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
     private void getPlaces() {
         String tag_string_req = "get_places";
 
+        linErrorConnect.setVisibility(View.GONE);
+        rvPlaces.setVisibility(View.VISIBLE);
+
         pDialog.setMessage("Завантаження закладів");
         showDialog();
 
@@ -256,7 +277,13 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
 
                         adapterP.getFilter().filter("");
                     }
-                    setAllDistances();
+                    if(places.size()>0){
+                        setAllDistances();
+                    } else {
+                        linErrorConnect.setVisibility(View.VISIBLE);
+                        rvPlaces.setVisibility(View.GONE);
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

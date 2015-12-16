@@ -66,7 +66,6 @@ public class SendCommentDialogFragment extends DialogFragment implements View.On
         isSendComment = getArguments().getBoolean("isSendComment");
         placeId = getArguments().getString("placeId");
 
-        Toast.makeText(getActivity(),placeId,Toast.LENGTH_SHORT).show();
 
         etText = (EditText) view.findViewById(R.id.etMainText);
 
@@ -100,7 +99,6 @@ public class SendCommentDialogFragment extends DialogFragment implements View.On
 
                 if (Checker.checkOneEditText(getActivity(), etText)) {
                     String mPlaceId = placeId;
-                    Toast.makeText(getActivity(),mPlaceId,Toast.LENGTH_SHORT).show();
                     String mUserId = AppController.getInstance().userId;
                     String mMessageText = etText.getText().toString();
                     String mRating = String.valueOf(rbRating.getRating());

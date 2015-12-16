@@ -45,6 +45,7 @@ public class NoConnectionDialogFragment extends DialogFragment implements View.O
         switch (v.getId()){
             case R.id.btnCancle:
                 getDialog().dismiss();
+                getActivity().finish();
                 break;
             case R.id.btnRepeat:
                 if(Checker.checkInternetConnection(getActivity()))

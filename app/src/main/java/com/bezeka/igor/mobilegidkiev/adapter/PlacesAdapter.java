@@ -180,9 +180,9 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
         @Override
         public int compare(Place p1, Place p2) {
             if(p2.getDistance() > p1.getDistance())
-                return -1;
-            else
                 return 1;
+            else
+                return -1;
         }
     }
 

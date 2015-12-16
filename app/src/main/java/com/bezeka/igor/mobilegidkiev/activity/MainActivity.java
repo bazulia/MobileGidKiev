@@ -3,7 +3,8 @@ package com.bezeka.igor.mobilegidkiev.activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
-import android.os.AsyncTask;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -39,13 +40,13 @@ import com.bezeka.igor.mobilegidkiev.model.Place;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.squareup.okhttp.OkHttpClient;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -182,13 +183,13 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
         int id = item.getItemId();
         switch (id) {
             case R.id.action_search:
-                if(etSearch.getVisibility() != View.VISIBLE) {
-                etSearch.setVisibility(View.VISIBLE);
-                etSearch.requestFocus();
-            } else {
+                if (etSearch.getVisibility() != View.VISIBLE) {
+                    etSearch.setVisibility(View.VISIBLE);
+                    etSearch.requestFocus();
+                } else {
                     etSearch.setVisibility(View.GONE);
-            }
-            break;
+                }
+                break;
             case R.id.action_sort_by_alpha:
                 hideKeyboard();
                 etSearch.setVisibility(View.GONE);
@@ -249,37 +250,13 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject object = (JSONObject) array.get(i);
 
-                        String id = object.getString("id");
-                        String title = object.getString("title");
-                        String description = object.getString("description");
-                        String address = object.getString("address");
-                        String link_image = object.getString("link_image");
-                        String work_time = object.getString("work_time");
-                        String type = object.getString("name");
-                        String region = object.getString("region");
-
-                        getLatLongFromGivenAddress(address);
-
-                        double curLat;
-                        double curLng;
-
-//                        curLat = mMap.getMyLocation().getLatitude();
-//                        curLng = mMap.getMyLocation().getLongitude();
-//
-//                        LatLng curLatLng = new LatLng(curLat, curLng);
-//                        LatLng findedLatLng = new LatLng(lat, lng);
-
-
-                        double distance = 243;//CalculationByDistance(curLatLng, findedLatLng);
-
-                        Place place = new Place(object);
-                        place.setDistance(distance);
-                        places.add(place);
+                        places.add(new Place(object));
 
                         rvPlaces.setAdapter(adapterP);
 
                         adapterP.getFilter().filter("");
                     }
+                    setAllDistances();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -312,8 +289,8 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
     @Override
     protected void onResume() {
         super.onResume();
-        if (menu!=null )
-        updateMenuTitles();
+        if (menu != null)
+            updateMenuTitles();
     }
 
     private void showDialog() {
@@ -334,53 +311,13 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
         }
     }
 
-    public void getLatLongFromGivenAddress(String youraddress) {
-//        try {
-//            youraddress = URLEncoder.encode(youraddress, "UTF-8");
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
-
-        String uri = "http://maps.google.com/maps/api/geocode/json?address=" +
-                youraddress + "&sensor=false&language=ru";
-
-
-        OkHttpClient client = new OkHttpClient();
-        String stringResponce = null;
-
-        try {
-            com.squareup.okhttp.Request request = new com.squareup.okhttp.Request.Builder()
-                    .url(uri)
-                    .build();
-
-            com.squareup.okhttp.Response response = client.newCall(request).execute();
-
-            stringResponce = response.body().string();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void setAllDistances() {
+        for (Place place : places) {
+            getLatLngFromAddress(place);
         }
-
-
-        if (stringResponce != null) {
-            JSONObject jsonObject = new JSONObject();
-            try {
-                jsonObject = new JSONObject(stringResponce);
-                lng = ((JSONArray) jsonObject.get("results")).getJSONObject(0)
-                        .getJSONObject("geometry").getJSONObject("location")
-                        .getDouble("lng");
-
-                lat = ((JSONArray) jsonObject.get("results")).getJSONObject(0)
-                        .getJSONObject("geometry").getJSONObject("location")
-                        .getDouble("lat");
-
-                Log.d("latitude", lat + "");
-                Log.d("longitude", lng + "");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
+        adapterP.notifyDataSetChanged();
     }
+
 
     public double CalculationByDistance(LatLng StartP, LatLng EndP) {
         int Radius = 6371;// radius of earth in Km
@@ -417,28 +354,107 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
         }
     }
 
+    private float distanceBetween(LatLng latLng1, LatLng latLng2) {
 
-    public class LocationAsync extends AsyncTask {
+        Location loc1 = new Location(LocationManager.GPS_PROVIDER);
+        Location loc2 = new Location(LocationManager.GPS_PROVIDER);
 
-        String mAddress;
+        loc1.setLatitude(latLng1.latitude);
+        loc1.setLongitude(latLng1.longitude);
 
-        public LocationAsync(String mAddress) {
-            this.mAddress = mAddress;
+        loc2.setLatitude(latLng2.latitude);
+        loc2.setLongitude(latLng2.longitude);
+
+
+        float distance = loc1.distanceTo(loc2);
+
+        distance = Math.round(distance);
+        return distance;
+    }
+
+    private void getLatLngFromAddress(final Place place) {
+
+        String youraddress = place.getAddress();
+
+        try {
+            youraddress = URLEncoder.encode(youraddress, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
         }
 
-        @Override
-        protected Object doInBackground(Object[] params) {
-
-            getLatLongFromGivenAddress(mAddress);
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Object o) {
-            super.onPostExecute(o);
+        String uri = "http://maps.google.com/maps/api/geocode/json?address=" +
+                youraddress + "&sensor=false&language=ru";
 
 
-        }
+        String tag_string_req = "setAllDistance";
+
+
+        Response.Listener listener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String responce) {
+                Log.d(TAG, "SetAllDistance Responce: " + responce);
+                {
+                    if (responce != null) {
+                        JSONObject jsonObject = new JSONObject();
+                        try {
+                            jsonObject = new JSONObject(responce);
+                            lng = ((JSONArray) jsonObject.get("results")).getJSONObject(0)
+                                    .getJSONObject("geometry").getJSONObject("location")
+                                    .getDouble("lng");
+
+                            lat = ((JSONArray) jsonObject.get("results")).getJSONObject(0)
+                                    .getJSONObject("geometry").getJSONObject("location")
+                                    .getDouble("lat");
+
+                            Log.d("latitude", lat + "");
+                            Log.d("longitude", lng + "");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+
+                    double curLat;
+                    double curLng;
+
+                    curLat = mMap.getMyLocation().getLatitude();
+                    curLat = mMap.getMyLocation().getLatitude();
+
+                    curLng = mMap.getMyLocation().getLongitude();
+                    curLng = mMap.getMyLocation().getLongitude();
+
+                    LatLng curLatLng = new LatLng(curLat, curLng);
+                    LatLng findedLatLng = new LatLng(lat, lng);
+
+                    double distance = distanceBetween(curLatLng, findedLatLng);
+
+                    place.setDistance(distance);
+                }
+            }
+
+        };
+
+
+        Response.ErrorListener errorListener = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Log.d(TAG, "SetAllDistance Error: " + volleyError.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        R.string.sry_cant_load_data_from_server, Toast.LENGTH_LONG).show();
+                hideDialog();
+            }
+        };
+
+
+        StringRequest strReq = new StringRequest(Request.Method.GET,
+                uri, listener, errorListener) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+
+                return params;
+            }
+        };
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
     }
 }

@@ -30,6 +30,8 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
     private ArrayList<Place> filteredPlaces;
     private Context context;
 
+    boolean isShowDistance = false;
+
     public PlacesAdapter(Context context, ArrayList<Place> places) {
         this.places = places;
         this.context = context;
@@ -141,16 +143,19 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
 
     public void sortByRating(){
         Collections.sort(filteredPlaces,new CustomComparatorRating());
+        isShowDistance = false;
         this.notifyDataSetChanged();
     }
 
     public void sortByAlphabet(){
         Collections.sort(filteredPlaces,new CustomComparatorAlphabet());
+        isShowDistance = false;
         this.notifyDataSetChanged();
     }
 
     public void sortByDistance(){
         Collections.sort(filteredPlaces,new CustomComparatorAlphabet());
+        isShowDistance = true;
         this.notifyDataSetChanged();
     }
 
@@ -188,9 +193,26 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
         viewHolder.title.setText(place.getTitle());
         viewHolder.description.setText(place.getDescription());
         viewHolder.rating.setRating(place.getRating());
-        viewHolder.tvDistance.setText(place.getDistance()+"");
-        viewHolder.tvAVGRating.setText(place.getRating()+"");
+
+        if(place.getDistance()>1000){
+            viewHolder.tvDistance.setText(((place.getDistance())/1000)+" (km.)");
+        }else {
+            viewHolder.tvDistance.setText(place.getDistance()+" (m.)");
+        }
+
+        viewHolder.tvAVGRating.setText(place.getRating() + "");
         viewHolder.tvCommentsCount.setText(place.getCountComments());
+
+        if(isShowDistance){
+            viewHolder.tvDistance.setVisibility(View.VISIBLE);
+            viewHolder.tvAVGRating.setVisibility(View.GONE);
+            viewHolder.rating.setVisibility(View.GONE);
+        } else {
+            viewHolder.tvDistance.setVisibility(View.GONE);
+            viewHolder.tvAVGRating.setVisibility(View.VISIBLE);
+            viewHolder.rating.setVisibility(View.VISIBLE);
+        }
+
         Picasso.with(context)
                 .load(place.getImgLink())
                 .into(viewHolder.img);

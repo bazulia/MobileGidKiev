@@ -12,17 +12,20 @@ public class Comment {
     public static final String JSON_TEXT = "text";
     public static final String JSON_RATING = "rating";
     public static final String JSON_NAME = "name";
+    public static final String JSON_DATE = "date";
 
     String id;
     float rating;
     String name;
     String text;
+    String date;
 
     public Comment(JSONObject json) throws JSONException {
         setId(json.getString(JSON_ID));
         setText(json.getString(JSON_TEXT));
         setName(json.getString(JSON_NAME));
         setRating(Float.valueOf(json.getString(JSON_RATING)));
+        setDate(json.getString(JSON_DATE));
     }
 
     public JSONObject toJSON() throws JSONException{
@@ -31,8 +34,17 @@ public class Comment {
         json.put(JSON_TEXT,getText());
         json.put(JSON_NAME,getName());
         json.put(JSON_RATING,getRating());
+        json.put(JSON_DATE,getDate());
 
         return json;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public float getRating() {

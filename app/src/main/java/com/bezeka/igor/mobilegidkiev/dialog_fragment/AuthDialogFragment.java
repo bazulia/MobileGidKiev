@@ -99,6 +99,7 @@ public class AuthDialogFragment extends DialogFragment implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
+        ((MainActivity)getActivity()).drawerFragment.updateDrawerText();
         switch (v.getId()) {
             case R.id.btnCancle:
                 getDialog().cancel();

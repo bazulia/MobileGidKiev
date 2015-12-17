@@ -2,6 +2,14 @@
 <resources>
     <color name="action_bar">#50a7f7</color>
     <color name="primary">#50a7f7</color>
+    <color name="primary_light">#7fc9ff</color>
     <color name="primary_dark">#3983bc</color>
     <color name="login_bg">#6366b4ff</color>
+
+    <color name="colorPrimary">#F50057</color>
+    <color name="colorPrimaryDark">#C51162</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="navigationBarColor">#000000</color>
+    <color name="colorAccent">#FF80AB</color>
 </resources>

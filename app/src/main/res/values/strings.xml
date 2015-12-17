@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MobileGidKiev</string>
+    <string name="app_name">Мобільний Гід</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -21,6 +21,7 @@
     <string name="name">Ім\'я: </string>
     <string name="comments">Відгуки: </string>
     <string name="description">Опис: </string>
+    <string name="categories">Категорії: </string>
     <string name="see_on_map">Переглянути на мапі</string>
 
     <string name="auth">Авторизація</string>
@@ -46,6 +47,7 @@
     <string name="toregister">Зареєструватися</string>
     <string name="tosend">Надіслати</string>
     <string name="torepeat">Повторити</string>
+    <string name="toauth">Авторизуватися</string>
 
     <string name="login_email">Email</string>
     <string name="login_password">Пароль</string>
@@ -60,5 +62,20 @@
     <string name="plz_wait_loading_map">Завантаження мапи</string>
     <string name="plz_wait_sending_comment">Відправлення відгуку</string>
     <string name="title_activity_map">MapActivity</string>
+
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <string name="nav_item_home">Home</string>
+    <string name="nav_item_friends">Friends</string>
+    <string name="nav_item_notifications">Messages</string>
+
+    <!-- navigation drawer item labels  -->
+    <string-array name="nav_drawer_labels">
+        <item>@string/nav_item_home</item>
+        <item>@string/nav_item_friends</item>
+        <item>@string/nav_item_notifications</item>
+    </string-array>
+
 
 </resources>

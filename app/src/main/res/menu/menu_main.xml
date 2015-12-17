@@ -28,9 +28,9 @@
         android:title="@string/action_sort_distance"
         app:showAsAction="never" />
 
-    <item
-        android:id="@+id/action_auth"
-        android:orderInCategory="200"
-        android:title="@string/action_auth"
-        app:showAsAction="never" />
+    <!--<item-->
+        <!--android:id="@+id/action_auth"-->
+        <!--android:orderInCategory="200"-->
+        <!--android:title="@string/action_auth"-->
+        <!--app:showAsAction="never" />-->
 </menu>

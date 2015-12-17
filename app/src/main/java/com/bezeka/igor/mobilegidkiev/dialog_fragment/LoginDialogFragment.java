@@ -92,6 +92,7 @@ public class LoginDialogFragment extends DialogFragment implements View.OnClickL
 
     @Override
     public void onClick(View v) {
+        ((MainActivity)getActivity()).drawerFragment.updateDrawerText();
         switch (v.getId()) {
             case R.id.btnCancle:
                 getDialog().cancel();

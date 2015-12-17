@@ -2,14 +2,14 @@ package com.bezeka.igor.mobilegidkiev.activity;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.graphics.drawable.ColorDrawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -33,8 +33,8 @@ import com.bezeka.igor.mobilegidkiev.R;
 import com.bezeka.igor.mobilegidkiev.adapter.PlacesAdapter;
 import com.bezeka.igor.mobilegidkiev.app.AppConfig;
 import com.bezeka.igor.mobilegidkiev.app.AppController;
-import com.bezeka.igor.mobilegidkiev.dialog_fragment.AuthDialogFragment;
 import com.bezeka.igor.mobilegidkiev.dialog_fragment.NoConnectionDialogFragment;
+import com.bezeka.igor.mobilegidkiev.fragment.FragmentDrawer;
 import com.bezeka.igor.mobilegidkiev.helper.Checker;
 import com.bezeka.igor.mobilegidkiev.helper.SessionManager;
 import com.bezeka.igor.mobilegidkiev.model.Place;
@@ -48,14 +48,20 @@ import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements NoConnectionDialogFragment.CheckInternetInterface {
+public class MainActivity extends AppCompatActivity
+        implements NoConnectionDialogFragment.CheckInternetInterface,
+        FragmentDrawer.FragmentDrawerListener {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+
+    private ArrayList<String> categories = new ArrayList<>();
+
+    private FragmentDrawer.FragmentDrawerListener listener;
 
     double lat;
     double lng;
@@ -65,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
 
     private GoogleMap mMap;
 
-    private EditText etSearch;
+    public EditText etSearch;
 
     private LinearLayout linErrorConnect;
     private TextView tvRepeat;
@@ -79,14 +85,24 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
 
     private ProgressDialog pDialog;
 
+    public Context context;
+
+    private Toolbar mToolbar;
+    public FragmentDrawer drawerFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ActionBar bar = getSupportActionBar();
-        bar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.action_bar)));
+        context = this;
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         session = new SessionManager(getApplicationContext());
 
@@ -107,9 +123,9 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
             @Override
             public void onClick(View v) {
                 if (Checker.checkInternetConnection(getApplicationContext())) {
-                    getPlaces();
+                    getPlaces((FragmentDrawer.FragmentDrawerListener)drawerFragment);
                 } else {
-                    Checker.showCheckInternetDialog((MainActivity)getApplicationContext());
+                    Checker.showCheckInternetDialog((MainActivity) getApplicationContext());
                 }
             }
         });
@@ -127,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
         mMap.setMyLocationEnabled(true);
 
         if (Checker.checkInternetConnection(getApplicationContext())) {
-            getPlaces();
+            getPlaces(this);
         } else {
             Checker.showCheckInternetDialog(this);
         }
@@ -165,17 +181,18 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
 
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        MenuItem item = menu.findItem(R.id.action_auth);
-        if (session.isLoggedIn()) {
-            item.setTitle(R.string.cabinet);
-        } else {
-            item.setTitle(R.string.auth);
-        }
+//        MenuItem item = menu.findItem(R.id.action_auth);
+//        if (session.isLoggedIn()) {
+//            item.setTitle(R.string.cabinet);
+//        } else {
+//            item.setTitle(R.string.auth);
+//        }
 
         this.menu = menu;
 
@@ -183,20 +200,11 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
     }
 
     public void updateMenuTitles() {
-        MenuItem item = menu.findItem(R.id.action_auth);
-        if (session.isLoggedIn()) {
-            item.setTitle(R.string.cabinet);
-        } else {
-            item.setTitle(R.string.auth);
-        }
+
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-
 
         int id = item.getItemId();
         switch (id) {
@@ -224,20 +232,7 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
                 adapterP.sortByDistance();
                 adapterP.notifyDataSetChanged();
                 break;
-            case R.id.action_auth:
-                hideKeyboard();
-                etSearch.setVisibility(View.GONE);
-                if (Checker.checkInternetConnection(getApplicationContext())) {
-                    AuthDialogFragment authDialogFragment = new AuthDialogFragment();
-                    Bundle args = new Bundle();
-                    args.putBoolean("isSendComment", false);
-                    authDialogFragment.setArguments(args);
-                    authDialogFragment.show(getSupportFragmentManager(), AuthDialogFragment.class.getSimpleName());
-                } else {
-                    Checker.showCheckInternetDialog(this);
-                }
 
-                break;
         }
 
 
@@ -245,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
     }
 
 
-    private void getPlaces() {
+    private void getPlaces(final FragmentDrawer.FragmentDrawerListener drawerListener) {
         String tag_string_req = "get_places";
 
         linErrorConnect.setVisibility(View.GONE);
@@ -254,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
         pDialog.setMessage("Завантаження закладів");
         showDialog();
 
-        Response.Listener listener = new Response.Listener<String>() {
+        final Response.Listener listener = new Response.Listener<String>() {
             @Override
             public void onResponse(String responce) {
                 Log.d(TAG, "Places Responce: " + responce);
@@ -268,8 +263,18 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
 
                     JSONArray array = new JSONArray(responce);
 
+                    if(!categories.contains("Всі")){
+                        categories.add("Всі");
+                    }
+
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject object = (JSONObject) array.get(i);
+
+
+                        if (!categories.contains(object.getString(Place.JSON_NAME))) {
+                            categories.add(object.getString(Place.JSON_NAME));
+
+                        }
 
                         places.add(new Place(object));
 
@@ -277,7 +282,11 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
 
                         adapterP.getFilter().filter("");
                     }
-                    if(places.size()>0){
+                    if (places.size() > 0) {
+                        drawerFragment = (FragmentDrawer)
+                                getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
+                        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mToolbar);
+                        drawerFragment.setDrawerListener(drawerListener);
                         setAllDistances();
                     } else {
                         linErrorConnect.setVisibility(View.VISIBLE);
@@ -297,6 +306,8 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
                 Toast.makeText(getApplicationContext(),
                         R.string.sry_cant_load_data_from_server, Toast.LENGTH_LONG).show();
                 hideDialog();
+                linErrorConnect.setVisibility(View.VISIBLE);
+                rvPlaces.setVisibility(View.GONE);
             }
         };
 
@@ -318,6 +329,8 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
         super.onResume();
         if (menu != null)
             updateMenuTitles();
+        if(drawerFragment!=null)
+            drawerFragment.updateDrawerText();
     }
 
     private void showDialog() {
@@ -346,36 +359,11 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
     }
 
 
-    public double CalculationByDistance(LatLng StartP, LatLng EndP) {
-        int Radius = 6371;// radius of earth in Km
-        double lat1 = StartP.latitude;
-        double lat2 = EndP.latitude;
-        double lon1 = StartP.longitude;
-        double lon2 = EndP.longitude;
-        double dLat = Math.toRadians(lat2 - lat1);
-        double dLon = Math.toRadians(lon2 - lon1);
-        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2)
-                + Math.cos(Math.toRadians(lat1))
-                * Math.cos(Math.toRadians(lat2)) * Math.sin(dLon / 2)
-                * Math.sin(dLon / 2);
-        double c = 2 * Math.asin(Math.sqrt(a));
-        double valueResult = Radius * c;
-        double km = valueResult / 1;
-        DecimalFormat newFormat = new DecimalFormat("####");
-        int kmInDec = Integer.valueOf(newFormat.format(km));
-        double meter = valueResult % 1000;
-        int meterInDec = Integer.valueOf(newFormat.format(meter));
-        Log.i("Radius Value", "" + valueResult + "   KM  " + kmInDec
-                + " Meter   " + meterInDec);
-
-
-        return meterInDec;
-    }
 
     @Override
     public void onGetResult(boolean connect) {
         if (Checker.checkInternetConnection(getApplicationContext())) {
-            getPlaces();
+            getPlaces(this);
         } else {
             Checker.showCheckInternetDialog(this);
         }
@@ -483,5 +471,19 @@ public class MainActivity extends AppCompatActivity implements NoConnectionDialo
             }
         };
         AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    public void filterByCategory(int position) {
+        adapterP.getFilter().filter(categories.get(position));
+    }
+
+    @Override
+    public void onDrawerItemSelected(View view, int position) {
+        filterByCategory(position);
+        getSupportActionBar().setTitle(categories.get(position));
+    }
+
+    public List<String> getCategories() {
+        return categories;
     }
 }

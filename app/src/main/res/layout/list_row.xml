@@ -51,6 +51,7 @@
                     android:layout_gravity="left"
                     android:layout_width="35dp"
                     android:layout_height="25dp"
+                    android:visibility="gone"
                     android:src="@drawable/comment_icon"
                     android:layout_centerVertical="true"
                     android:layout_alignParentLeft="true"
@@ -91,20 +92,20 @@
                     android:textSize="16dp"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="40dp"
+                    android:layout_height="35dp"
+                    android:gravity="center"
                     android:id="@+id/tvCommentsCount"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
+                    android:background="@drawable/comment_icon"
                     android:layout_alignBottom="@+id/imageView"
                     android:layout_toRightOf="@+id/imageView"
                     android:layout_toEndOf="@+id/imageView" />
             </RelativeLayout>
 
-
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
-
 
 </LinearLayout>

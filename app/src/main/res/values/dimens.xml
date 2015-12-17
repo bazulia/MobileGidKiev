@@ -4,6 +4,7 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="comment_title_size">8sp</dimen>
     <dimen name="comment_text_size">6sp</dimen>
+    <dimen name="nav_drawer_width">260dp</dimen>
 
 
 </resources>

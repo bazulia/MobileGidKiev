@@ -97,6 +97,7 @@ public class RegistrationDialogFragment extends DialogFragment implements View.O
 
     @Override
     public void onClick(View v) {
+        ((MainActivity)getActivity()).drawerFragment.updateDrawerText();
         switch (v.getId()) {
             case R.id.btnCancle:
                 getDialog().cancel();
@@ -111,16 +112,26 @@ public class RegistrationDialogFragment extends DialogFragment implements View.O
                         passwordConfirm = etConfirmPassword.getText().toString();
                         name = etName.getText().toString();
 
-                        if(Checker.checkInternetConnection(getActivity())){
-                            registration(email, password, name);
+                        if (isEmailValid(email)){
+                            if(Checker.checkInternetConnection(getActivity())){
+                                registration(email, password, name);
+                            } else {
+                                Checker.showCheckInternetDialog((MainActivity)getActivity());
+                            }
                         } else {
-                            Checker.showCheckInternetDialog((MainActivity)getActivity());
+                            Toast.makeText(getActivity().getApplicationContext(),
+                                    "Ви ввели email в невірному форматі\n перевірте корректність", Toast.LENGTH_LONG).show();
                         }
+
 
                     }
                 }
                 break;
         }
+    }
+
+    boolean isEmailValid(CharSequence email) {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
     private void sendResult(int resultCode) {

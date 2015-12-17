@@ -60,6 +60,8 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
 
+            System.out.println("Filter KEY : "+constraint);
+
             filteredPlaces.clear();
             final FilterResults results = new FilterResults();
 
@@ -69,10 +71,12 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
                 final String filterPattern = constraint.toString().toLowerCase().trim();
 
                 for (final Place place : originalPlaces) {
-                    if (place.getTitle().toLowerCase().contains(constraint)
-                            || place.getAddress().toLowerCase().contains(constraint)
-                            || place.getAddress().contains(constraint)
-                            || place.getTitle().contains(constraint)) {
+                    if (filterPattern.contains("всі")){
+                        filteredPlaces.add(place);
+                    } else
+                    if (place.getTitle().toLowerCase().contains(filterPattern)
+                            || place.getAddress().toLowerCase().contains(filterPattern)
+                            || place.getName().toLowerCase().contains(filterPattern)) {
                         filteredPlaces.add(place);
                     }
                 }
@@ -154,7 +158,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
     }
 
     public void sortByDistance(){
-        Collections.sort(filteredPlaces,new CustomComparatorAlphabet());
+        Collections.sort(filteredPlaces,new CustomComparatorDistance());
         isShowDistance = true;
         this.notifyDataSetChanged();
     }
@@ -179,7 +183,7 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlacesAdapter.ViewHolder
     public class CustomComparatorDistance implements Comparator<Place> {
         @Override
         public int compare(Place p1, Place p2) {
-            if(p2.getDistance() > p1.getDistance())
+            if(p2.getDistance() < p1.getDistance())
                 return 1;
             else
                 return -1;

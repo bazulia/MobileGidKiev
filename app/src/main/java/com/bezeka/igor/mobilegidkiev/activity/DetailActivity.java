@@ -3,8 +3,8 @@ package com.bezeka.igor.mobilegidkiev.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.util.Log;
 import android.util.TypedValue;
@@ -91,13 +91,20 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
 
     private ProgressBar pDialog;
 
+    private Toolbar mToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.detail_activity);
 
-        getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.action_bar));
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        //getSupportActionBar().setBackgroundDrawable(ContextCompat.getDrawable(this, R.drawable.action_bar));
 
         img = (ImageView) findViewById(R.id.imgDetail);
         title = (TextView) findViewById(R.id.titleDesc);
